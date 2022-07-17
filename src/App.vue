@@ -57,8 +57,10 @@ export default {
     },
 
     data: () => ({
-        inGame: $cookies.get("names") ? true : false,
-        players: $cookies.get("names") ? JSON.parse($cookies.get("names")) : [],
+        inGame: $cookies.isKey("names") ? true : false,
+        players: $cookies.isKey("names")
+            ? JSON.parse($cookies.get("names"))
+            : [],
         finalResult: [],
         resultSeen: false,
     }),
@@ -82,6 +84,8 @@ export default {
             this.$refs.inputName.close();
             this.inGame = false;
             this.resultSeen = false;
+            // remove all cookie
+            $cookies.keys().forEach((cookie) => $cookies.remove(cookie));
         },
         // finish the game calculate the result
         sendResult() {

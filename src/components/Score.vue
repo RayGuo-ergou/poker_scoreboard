@@ -55,7 +55,9 @@
 export default {
     data() {
         return {
-            score: 0,
+            score: $cookies.isKey(this.username)
+                ? parseInt($cookies.get(this.username))
+                : 0,
             temp: 0,
             leftCards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
             rules: [
@@ -96,6 +98,8 @@ export default {
             // alert error
             if (this.valid || this.temp === 0) {
                 this.score += parseInt(this.temp);
+                // set cookie
+                $cookies.set(this.username, this.score);
                 this.temp = 0;
             } else {
                 this.dialog = true;
