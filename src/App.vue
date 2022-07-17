@@ -8,14 +8,15 @@
             <InputName ref="inputName" @submit="submit"></InputName>
         </div>
 
-        <div v-if="players.length == 4">
+        <div v-if="inGame">
             <v-row>
                 <v-col
                     v-for="play in players"
                     :key="play"
                     cols="8"
-                    lg="3"
+                    lg="6"
                     md="6"
+                    xl="3"
                     ><Score
                         @result="result"
                         ref="scoreboard"
@@ -56,8 +57,8 @@ export default {
     },
 
     data: () => ({
-        inGame: false,
-        players: [],
+        inGame: $cookies.get("names") ? true : false,
+        players: $cookies.get("names") ? JSON.parse($cookies.get("names")) : [],
         finalResult: [],
         resultSeen: false,
     }),
@@ -91,9 +92,9 @@ export default {
         },
         result(result) {
             this.finalResult.push(result);
-            // TODO: show result
             if (this.finalResult.length === this.players.length) {
                 this.$refs.scoreboard.forEach((element) => {
+                    console.log(this.finalResult);
                     element.calculateResult(this.finalResult);
                 });
             }

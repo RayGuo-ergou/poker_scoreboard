@@ -47,7 +47,7 @@
         <p>
             {{ finalResult }}
         </p>
-        <p>{{ calPayments }}</p>
+        <div v-html="calPayments"></div>
     </v-container>
 </template>
 
@@ -72,7 +72,12 @@ export default {
             let str = "";
             this.finalResult.forEach((element) => {
                 if (element.score > 0) {
-                    str += element.username + ": " + element.score + "\n";
+                    str +=
+                        "<p>Paying " +
+                        element.username +
+                        ": " +
+                        element.score +
+                        "</p>";
                 }
             });
             return str;
@@ -95,6 +100,8 @@ export default {
             } else {
                 this.dialog = true;
             }
+
+            this.finalResult = [];
         },
         sendResult() {
             this.$emit("result", {
@@ -104,21 +111,22 @@ export default {
         },
         calculateResult(array) {
             let currentScore = 0;
-            let final = [];
+            this.finalResult = [];
             array.forEach((element) => {
                 // if element.username = this.username continue
                 if (element.username === this.username) {
                     currentScore = element.score;
                     return;
-                } else {
-                    final.push({
+                }
+            });
+            array.forEach((element) => {
+                if (element.username !== this.username) {
+                    this.finalResult.push({
                         username: element.username,
-                        score: element.score - currentScore,
+                        score: currentScore - element.score,
                     });
                 }
             });
-
-            this.finalResult = final;
         },
     },
 };
