@@ -24,33 +24,30 @@
 
         <v-dialog v-model="dialog" width="500">
             <v-card>
-                <v-card-title class="text-h5 grey lighten-2">
-                    Privacy Policy
-                </v-card-title>
-
+                <v-card-title color="error" class="text-h5 grey lighten-2"
+                    >Error</v-card-title
+                >
                 <v-card-text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum
+                    <v-container>
+                        {{ username }} has invalid input. (should between 1 to
+                        65)
+                    </v-container>
                 </v-card-text>
-
-                <v-divider></v-divider>
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" text @click="dialog = false">
-                        I accept
-                    </v-btn>
+                    <v-btn color="primary" text @click="dialog = false"
+                        >Okay</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
 
         <p>{{ score }}</p>
+        <p>
+            {{ finalResult }}
+        </p>
+        <p>{{ calPayments }}</p>
     </v-container>
 </template>
 
@@ -61,10 +58,25 @@ export default {
             score: 0,
             temp: 0,
             leftCards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-            rules: [(v) => v >= 0 || "min 0", (v) => v <= 13 || "max 13"],
+            rules: [
+                (v) => v >= 0 || "Error:min 0",
+                (v) => v <= 65 || "Error:max 65",
+            ],
             valid: true,
             dialog: false,
+            finalResult: [],
         };
+    },
+    computed: {
+        calPayments() {
+            let str = "";
+            this.finalResult.forEach((element) => {
+                if (element.score > 0) {
+                    str += element.username + ": " + element.score + "\n";
+                }
+            });
+            return str;
+        },
     },
 
     props: {
@@ -89,6 +101,24 @@ export default {
                 username: this.username,
                 score: this.score,
             });
+        },
+        calculateResult(array) {
+            let currentScore = 0;
+            let final = [];
+            array.forEach((element) => {
+                // if element.username = this.username continue
+                if (element.username === this.username) {
+                    currentScore = element.score;
+                    return;
+                } else {
+                    final.push({
+                        username: element.username,
+                        score: element.score - currentScore,
+                    });
+                }
+            });
+
+            this.finalResult = final;
         },
     },
 };

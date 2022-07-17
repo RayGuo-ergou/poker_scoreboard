@@ -84,6 +84,7 @@ export default {
         },
         // finish the game calculate the result
         sendResult() {
+            this.finalResult = [];
             this.$refs.scoreboard.forEach((element) => {
                 element.sendResult();
             });
@@ -91,6 +92,11 @@ export default {
         result(result) {
             this.finalResult.push(result);
             // TODO: show result
+            if (this.finalResult.length === this.players.length) {
+                this.$refs.scoreboard.forEach((element) => {
+                    element.calculateResult(this.finalResult);
+                });
+            }
             this.resultSeen = true;
         },
     },
