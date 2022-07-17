@@ -110,20 +110,20 @@ export default {
             });
         },
         calculateResult(array) {
-            let currentScore = 0;
+            // let currentScore = 0;
             this.finalResult = [];
-            array.forEach((element) => {
-                // if element.username = this.username continue
-                if (element.username === this.username) {
-                    currentScore = element.score;
-                    return;
-                }
-            });
+            // array.forEach((element) => {
+            //     // if element.username = this.username continue
+            //     if (element.username === this.username) {
+            //         currentScore = element.score;
+            //         return;
+            //     }
+            // });
             array.forEach((element) => {
                 if (element.username !== this.username) {
                     this.finalResult.push({
                         username: element.username,
-                        score: currentScore - element.score,
+                        score: this.score - element.score,
                     });
                 }
             });
