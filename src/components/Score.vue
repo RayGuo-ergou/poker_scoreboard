@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <h3>{{ username }}</h3>
-    <h4>Score</h4>
+    <h4>{{ username }}</h4>
     <v-row>
       <v-col cols="9">
         <v-form v-model="valid">
           <v-text-field
             @focus="$event.target.select()"
-            type="number"
+            type="tel"
+            pattern="[0-9]*"
             label="Main input"
             hide-details="auto"
             v-model="temp"
