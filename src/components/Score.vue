@@ -6,7 +6,7 @@
         <v-form v-model="valid">
           <v-text-field
             @focus="$event.target.select()"
-            type="tel"
+            type="number"
             pattern="[0-9]*"
             label="Main input"
             hide-details="auto"
@@ -86,6 +86,15 @@ export default {
     addScore() {
       // if valid is false
       // alert error
+      if (
+        this.temp == NaN ||
+        this.temp == undefined ||
+        this.temp == null ||
+        this.temp == ''
+      ) {
+        this.temp = 0;
+        console.log('undefined');
+      }
       if (this.valid || this.temp === 0) {
         this.score += parseInt(this.temp);
         // set cookie
