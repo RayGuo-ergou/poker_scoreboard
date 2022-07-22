@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       select: [],
-      names: ['Ray', 'Reco', 'Alan', 'Daniel', 'Sharonron', 'Kevin'],
+      names: ['Ray', 'Reco', 'Alan', 'Daniel', 'Sharon', 'Kevin'],
     };
   },
   watch: {
