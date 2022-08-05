@@ -30,7 +30,7 @@
                 <v-card-text>
                     <v-container>
                         {{ username }} has invalid input. (should between 1 to
-                        65)
+                        13)
                     </v-container>
                 </v-card-text>
 
@@ -44,9 +44,8 @@
         </v-dialog>
 
         <p v-show="showResult">{{ score }}</p>
-        <!-- <p>
-            {{ finalResult }}
-        </p> -->
+        <p>{{ score }}</p>
+        <!-- <p>{{ finalResult }}</p> -->
         <div v-html="calPayments"></div>
     </v-container>
 </template>
@@ -62,7 +61,7 @@ export default {
             leftCards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
             rules: [
                 (v) => v >= 0 || 'Error:min 0',
-                (v) => v <= 65 || 'Error:max 65',
+                (v) => v <= 13 || 'Error:max 13',
             ],
             valid: true,
             dialog: false,
@@ -76,10 +75,12 @@ export default {
             this.finalResult.forEach((element) => {
                 if (element.score > 0) {
                     str +=
-                        '<p>Paying ' +
+                        '<p style="color: red">Pay ' +
                         element.username +
                         ': ' +
+                        '<b>' +
                         element.score +
+                        '</b>' +
                         '</p>';
                 }
             });
@@ -106,7 +107,24 @@ export default {
                 this.temp = 0;
             }
             if (this.valid || this.temp === 0) {
-                this.score += parseInt(this.temp);
+                let tempNum = parseInt(this.temp);
+
+                // if temp in range of 7 to 9, temp = temp * 2
+                if (tempNum >= 7 && tempNum <= 9) {
+                    tempNum = tempNum * 2;
+                }
+
+                // if temp in range of 10 to 12, temp = temp * 3
+                if (tempNum >= 10 && tempNum <= 12) {
+                    tempNum = tempNum * 3;
+                }
+
+                // if temp == 13 , temp = 65
+                if (tempNum == 13) {
+                    tempNum = 65;
+                }
+
+                this.score += tempNum;
                 // set cookie
                 $cookies.set(this.username, this.score);
                 this.temp = 0;

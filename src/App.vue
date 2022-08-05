@@ -74,6 +74,9 @@ export default {
             this.inGame = true;
         },
         addCards() {
+            // hide end game button
+            this.resultSeen = false;
+
             let addedScores = [];
             // add a event to score child
             // for each of the score child, add a card
@@ -93,7 +96,6 @@ export default {
             addedScores.forEach((element) => {
                 str += `${element.username} added ${element.score}\n`;
             });
-            console.log(str);
             if (str !== '') {
                 this.toast.success(str, {
                     position: 'top-right',
