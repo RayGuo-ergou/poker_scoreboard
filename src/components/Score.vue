@@ -44,7 +44,7 @@
         </v-dialog>
 
         <p v-show="showResult">{{ score }}</p>
-        <p>{{ score }}</p>
+        <!-- <p>{{ score }}</p> -->
         <!-- <p>{{ finalResult }}</p> -->
         <div v-html="calPayments"></div>
     </v-container>

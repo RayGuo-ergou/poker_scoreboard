@@ -99,7 +99,7 @@ export default {
             if (str !== '') {
                 this.toast.success(str, {
                     position: 'top-right',
-                    timeout: 2000,
+                    timeout: 5000,
                     closeOnClick: true,
                     pauseOnFocusLoss: true,
                     pauseOnHover: true,
