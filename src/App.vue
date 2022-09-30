@@ -41,7 +41,6 @@
                 </v-col>
             </v-row>
         </div>
-        <test></test>
     </v-container>
 </template>
 

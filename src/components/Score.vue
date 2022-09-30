@@ -1,6 +1,9 @@
 <template>
     <v-container>
-        <h4>{{ username }}</h4>
+        <div id="userspace">
+            <img :src="img" @error="imageLoadError" />
+            <h4>{{ username }}</h4>
+        </div>
         <v-row>
             <v-col cols="9">
                 <v-form v-model="valid">
@@ -67,6 +70,7 @@ export default {
             dialog: false,
             finalResult: [],
             showResult: false,
+            img: `./src/assets/${this.username}.JPG`,
         };
     },
     computed: {
@@ -159,6 +163,26 @@ export default {
                 }
             });
         },
+        imageLoadError(e) {
+            e.target.src = './src/assets/user.png';
+        },
     },
 };
 </script>
+<style scoped>
+/* in id userspace img and h4 in same line */
+#userspace {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+#userspace img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+#userspace h4 {
+    margin: 0;
+}
+</style>
