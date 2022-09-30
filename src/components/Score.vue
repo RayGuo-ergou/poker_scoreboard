@@ -70,7 +70,7 @@ export default {
             dialog: false,
             finalResult: [],
             showResult: false,
-            img: `./src/assets/${this.username}.JPG`,
+            img: `./assets/${this.username}.JPG`,
         };
     },
     computed: {
@@ -164,7 +164,7 @@ export default {
             });
         },
         imageLoadError(e) {
-            e.target.src = './src/assets/user.png';
+            e.target.src = './assets/user.png';
         },
     },
 };
